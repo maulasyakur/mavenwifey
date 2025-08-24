@@ -25,9 +25,9 @@ export default function Navbar() {
     <div className="flex justify-between px-5 py-2">
       <div className="text-sm font-medium">{time}</div>
       <div className="flex gap-2">
-        <Signal />
-        <Wifi />
-        <BatteryFull />
+        <Signal size={20}/>
+        <Wifi size={20}/>
+        <BatteryFull size={20}/>
       </div>
     </div>
   );

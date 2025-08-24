@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import {Pixelify_Sans } from "next/font/google";
+import { Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 
 const pixelifySans = Pixelify_Sans({
-  subsets: ["latin"]
-})
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "mavenwifey",
@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pixelifySans.className} antialiased m-0 bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover backdrop-blur-md backdrop-brightness-50`}
+        className={`${pixelifySans.className} m-0 bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover backdrop-blur-md backdrop-brightness-50`}
       >
-        <div className="max-w-sm h-screen mx-auto flex flex-col bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover">
+        <div className="max-w-sm h-dvh mx-auto flex flex-col bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover">
           <Navbar />
           {children}
         </div>
