@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Pixelify_Sans, Press_Start_2P } from "next/font/google";
+import {Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
-import Wallpaper from "../public/wallpaper.jpg"
-
-const pressStart2P = Press_Start_2P({
-  weight: '400'
-})
 
 const pixelifySans = Pixelify_Sans({
   subsets: ["latin"]
