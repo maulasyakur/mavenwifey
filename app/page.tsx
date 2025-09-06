@@ -20,7 +20,7 @@ export default function Home() {
           PhotoAlbumIcon,
           AboutMeIcon,
         ].map((icon, index) => {
-          return <AppIcon icon={icon} name="İcon" key={index} />;
+          return <AppIcon icon={icon} name="Icon" key={index} />;
         })}
       </div>
 
