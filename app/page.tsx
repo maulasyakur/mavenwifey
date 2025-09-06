@@ -29,7 +29,7 @@ export default function Home() {
         <div>
           <div className="bg-white/50 w-16 h-16 rounded-lg relative">
             <Image
-              src={"/blog.png"}
+              src={BlogIcon}
               alt={"Blog Icon"}
               fill
               className="pixel-art p-1"
@@ -40,8 +40,8 @@ export default function Home() {
         <div>
           <div className="bg-white/50 w-16 h-16 rounded-lg relative">
             <Image
-              src={"/contact.png"}
-              alt={"Blog Icon"}
+              src={ContactIcon}
+              alt={"Contact Icon"}
               fill
               className="pixel-art p-1"
             />
@@ -51,8 +51,8 @@ export default function Home() {
         <div>
           <div className="bg-white/50 w-16 h-16 rounded-lg relative">
             <Image
-              src={"/guest-book.png"}
-              alt={"Blog Icon"}
+              src={GuestBookIcon}
+              alt={"Guest Book Icon"}
               fill
               className="pixel-art p-1"
             />
