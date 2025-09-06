@@ -1,45 +1,27 @@
 import Image from "next/image";
+import BlogIcon from "../public/blog.png";
+import ContactIcon from "../public/contact.png";
+import GuestBookIcon from "../public/guest-book.png";
+import ChatRoomIcon from "../public/chat-room.png";
+import PhotoAlbumIcon from "../public/photo-album.png";
+import AboutMeIcon from "../public/about-me.png";
+import AppIcon from "./components/app-icon";
 
 export default function Home() {
   return (
     <div className="flex flex-col justify-between flex-1 p-4">
       {/* app grid */}
       <div className="grid grid-cols-4 gap-4 justify-items-center">
-        <div>
-          <div className="bg-white/50 w-16 h-16 rounded-lg relative">
-            <Image
-              src={"/blog.png"}
-              alt={"Blog Icon"}
-              fill
-              className="pixel-art p-1"
-            />
-          </div>
-          <p className="text-center text-sm">Blog</p>
-        </div>
-
-        <div>
-          <div className="bg-white/50 w-16 h-16 rounded-lg relative">
-            <Image
-              src={"/contact.png"}
-              alt={"Blog Icon"}
-              fill
-              className="pixel-art p-1"
-            />
-          </div>
-          <p className="text-center text-sm">Contact</p>
-        </div>
-
-        <div>
-          <div className="bg-white/50 w-16 h-16 rounded-lg relative">
-            <Image
-              src={"/guest_book.png"}
-              alt={"Blog Icon"}
-              fill
-              className="pixel-art p-1"
-            />
-          </div>
-          <p className="text-center text-sm">Guest Book</p>
-        </div>
+        {[
+          BlogIcon,
+          ContactIcon,
+          GuestBookIcon,
+          ChatRoomIcon,
+          PhotoAlbumIcon,
+          AboutMeIcon,
+        ].map((icon, index) => {
+          return <AppIcon icon={icon} name="İcon" key={index} />;
+        })}
       </div>
 
       {/* dock */}

@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pixelifySans.className} m-0 bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover backdrop-blur-md backdrop-brightness-50`}
+        className={`${pixelifySans.className} m-0 bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover backdrop-blur-md backdrop-brightness-50 pixel-art`}
       >
-        <div className="max-w-sm h-dvh mx-auto flex flex-col bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover">
+        <div className="max-w-sm h-dvh mx-auto flex flex-col bg-[url(../public/wallpaper.jpg)] bg-fix bg-cover pixel-art">
           <Navbar />
           {children}
         </div>
