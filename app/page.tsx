@@ -51,7 +51,7 @@ export default function Home() {
         <div>
           <div className="bg-white/50 w-16 h-16 rounded-lg relative">
             <Image
-              src={"/guest_book.png"}
+              src={"/guest-book.png"}
               alt={"Blog Icon"}
               fill
               className="pixel-art p-1"

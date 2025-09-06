@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  output: "export",
-  basePath: "/mavenwifey",
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;
