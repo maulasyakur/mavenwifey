@@ -4,7 +4,7 @@ import GuestBookIcon from "../assets/guest-book.png";
 import ChatRoomIcon from "../assets/chat-room.png";
 import PhotoAlbumIcon from "../assets/photo-album.png";
 import AboutMeIcon from "../assets/about-me.png";
-import AppIcon from "../components/ui/AppIcon";
+import AppIcon from "../components/AppIcon";
 
 export default function Home() {
   return (

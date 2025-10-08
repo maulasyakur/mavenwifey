@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function AppIcon({
   icon,
   name,
@@ -9,7 +11,7 @@ export default function AppIcon({
 }) {
   return (
     <div>
-      <a href={url}>
+      <Link to={url}>
         <div className="bg-white/50 w-16 h-16 rounded-lg relative">
           <img
             src={icon}
@@ -18,7 +20,7 @@ export default function AppIcon({
           />
         </div>
         <p className="text-center text-xs capitalize">{name}</p>
-      </a>
+      </Link>
     </div>
   );
 }
