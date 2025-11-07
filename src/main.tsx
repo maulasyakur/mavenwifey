@@ -9,22 +9,30 @@ const RootLayout = lazy(() => import("./components/RootLayout"));
 const ChatRoom = lazy(() => import("./pages/ChatRoom"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Post = lazy(() => import("./pages/Post"));
+const BlogUpload = lazy(() => import("./pages/admin/BlogUpload"));
+const LogIn = lazy(() => import("./pages/admin/LogIn"));
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Home />} />
             <Route path="chat-room" element={<ChatRoom />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/post/:slug" element={<Post />} />
+            <Route path="blog">
+              <Route index element={<Blog />} />
+              <Route path=":slug" element={<Post />} />
+            </Route>
+          </Route>
+          <Route path="admin">
+            <Route path="blog-upload" element={<BlogUpload />} />
+            <Route path="login" element={<LogIn />} />
           </Route>
         </Routes>
       </BrowserRouter>
-    </StrictMode>
-  </QueryClientProvider>
+    </QueryClientProvider>
+  </StrictMode>
 );

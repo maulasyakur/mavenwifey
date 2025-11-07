@@ -16,6 +16,7 @@ export async function fetchPosts() {
 }
 
 export async function fetchPost(slug: string | undefined) {
+  console.log("Fetching post with slug:", slug);
   if (!slug) {
     throw new Error("Slug is not provided.");
   }

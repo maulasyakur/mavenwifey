@@ -30,7 +30,7 @@ export default function Blog() {
       <ul>
         {data?.map((post) => (
           <Link
-            to={`/post/${post.slug}`}
+            to={`/blog/${post.slug}`}
             className="text-xl font-semibold hover:underline"
             key={post.slug}
           >
