@@ -1,6 +1,5 @@
 import { lazy, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -9,8 +8,9 @@ const RootLayout = lazy(() => import("./components/RootLayout"));
 const ChatRoom = lazy(() => import("./pages/ChatRoom"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Post = lazy(() => import("./pages/Post"));
-const BlogUpload = lazy(() => import("./pages/admin/BlogUpload"));
+const BlogEditor = lazy(() => import("./pages/admin/BlogEditor"));
 const LogIn = lazy(() => import("./pages/admin/LogIn"));
+const BlogEditList = lazy(() => import("./pages/admin/BlogEditList"));
 
 const queryClient = new QueryClient();
 
@@ -28,7 +28,10 @@ createRoot(document.getElementById("root")!).render(
             </Route>
           </Route>
           <Route path="admin">
-            <Route path="blog-upload" element={<BlogUpload />} />
+            <Route path="blog-upload">
+              <Route index element={<BlogEditList />} />
+              <Route path=":slug" element={<BlogEditor />} />
+            </Route>
             <Route path="login" element={<LogIn />} />
           </Route>
         </Routes>

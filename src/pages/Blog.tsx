@@ -1,12 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import { fetchPosts } from "../utils/blog";
+import { usePostsList } from "../utils/blog";
 
 export default function Blog() {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["blog"],
-    queryFn: fetchPosts,
-  });
+  const { data, error, isLoading } = usePostsList();
 
   if (isLoading) {
     return (

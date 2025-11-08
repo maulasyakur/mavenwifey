@@ -1,15 +1,11 @@
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPost } from "../utils/blog";
+import { usePost } from "../utils/blog";
 import remarkGfm from "remark-gfm";
 
 export default function Post() {
   const { slug } = useParams();
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["post", slug],
-    queryFn: () => fetchPost(slug),
-  });
+  const { data, error, isLoading } = usePost(slug);
 
   if (isLoading) {
     return (
