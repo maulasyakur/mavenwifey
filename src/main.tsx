@@ -11,6 +11,8 @@ const Post = lazy(() => import("./pages/Post"));
 const BlogEditor = lazy(() => import("./pages/admin/BlogEditor"));
 const LogIn = lazy(() => import("./pages/admin/LogIn"));
 const BlogEditList = lazy(() => import("./pages/admin/BlogEditList"));
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
+const AdminHome = lazy(() => import("./pages/admin/Home"));
 
 const queryClient = new QueryClient();
 
@@ -27,7 +29,8 @@ createRoot(document.getElementById("root")!).render(
               <Route path=":slug" element={<Post />} />
             </Route>
           </Route>
-          <Route path="admin">
+          <Route path="admin" element={<ProtectedRoute />}>
+            <Route index element={<AdminHome />} />
             <Route path="blog-upload">
               <Route index element={<BlogEditList />} />
               <Route path=":slug" element={<BlogEditor />} />

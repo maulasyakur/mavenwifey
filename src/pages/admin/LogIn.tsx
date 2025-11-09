@@ -1,11 +1,20 @@
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import supabase from "../../utils/supabase";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useNavigate } from "react-router";
+import { SessionContext } from "../../components/ProtectedRoute";
 
 const HCaptchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY;
 
 export default function LogIn() {
+  const session = useContext(SessionContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,6 +24,13 @@ export default function LogIn() {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const captcha = useRef<HCaptcha>(null);
+
+  useEffect(() => {
+    console.log(session);
+    if (session) {
+      navigate("/admin", { replace: true });
+    }
+  }, [session, navigate]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -43,8 +59,6 @@ export default function LogIn() {
     setLoading(false);
     console.log("Login success", data);
     navigate("/admin/blog-upload");
-
-    // You would typically make an API call here
   }
 
   return (
