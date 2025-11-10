@@ -29,11 +29,13 @@ createRoot(document.getElementById("root")!).render(
               <Route path=":slug" element={<Post />} />
             </Route>
           </Route>
-          <Route path="admin" element={<ProtectedRoute />}>
-            <Route index element={<AdminHome />} />
-            <Route path="blog-upload">
-              <Route index element={<BlogEditList />} />
-              <Route path=":slug" element={<BlogEditor />} />
+          <Route path="admin">
+            <Route element={<ProtectedRoute />}>
+              <Route index element={<AdminHome />} />
+              <Route path="blog-upload">
+                <Route index element={<BlogEditList />} />
+                <Route path=":slug" element={<BlogEditor />} />
+              </Route>
             </Route>
             <Route path="login" element={<LogIn />} />
           </Route>
