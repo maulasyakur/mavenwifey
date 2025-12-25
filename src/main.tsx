@@ -11,6 +11,8 @@ const Post = lazy(() => import("./pages/Post"));
 const BlogEditor = lazy(() => import("./pages/admin/BlogEditor"));
 const LogIn = lazy(() => import("./pages/admin/LogIn"));
 const BlogEditList = lazy(() => import("./pages/admin/BlogEditList"));
+const ComingSoon = lazy(() => import("./components/ComingSoon"));
+const PageNotFound = lazy(() => import("./components/PageNotFound"));
 
 const queryClient = new QueryClient();
 
@@ -21,12 +23,18 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Home />} />
-            <Route path="chat-room" element={<ChatRoom />} />
             <Route path="blog">
               <Route index element={<Blog />} />
               <Route path=":slug" element={<Post />} />
             </Route>
+            <Route path="contact" element={<ComingSoon />} />
+            <Route path="guest-book" element={<ComingSoon />} />
+            <Route path="chat-room" element={<ChatRoom />} />
+            <Route path="photo-album" element={<ComingSoon />} />
+            <Route path="about-me" element={<ComingSoon />} />
+            <Route path="*" element={<PageNotFound />} />
           </Route>
+
           <Route path="admin">
             <Route path="blog-upload">
               <Route index element={<BlogEditList />} />

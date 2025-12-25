@@ -28,21 +28,21 @@ export default function BlogEditor() {
   const { data, error, isLoading } = usePost(slug);
   const editorRef = useRef<MDXEditorMethods>(null);
 
-  useEffect(() => {
-    const tailwindLink = document.querySelector(
-      'link[href="/src/index.css"]'
-    ) as HTMLLinkElement;
+  // useEffect(() => {
+  //   const tailwindLink = document.querySelector(
+  //     'link[href="/src/index.css"]'
+  //   ) as HTMLLinkElement;
 
-    if (tailwindLink) {
-      tailwindLink.disabled = true;
-    }
+  //   if (tailwindLink) {
+  //     tailwindLink.disabled = true;
+  //   }
 
-    return () => {
-      if (tailwindLink) {
-        tailwindLink.disabled = false;
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (tailwindLink) {
+  //       tailwindLink.disabled = false;
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (data?.content) {
