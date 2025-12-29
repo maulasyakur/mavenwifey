@@ -9,10 +9,13 @@ const ChatRoom = lazy(() => import("./pages/ChatRoom"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Post = lazy(() => import("./pages/Post"));
 const BlogEditor = lazy(() => import("./pages/admin/BlogEditor"));
-const LogIn = lazy(() => import("./pages/admin/LogIn"));
+const LogInPage = lazy(() => import("./pages/admin/LogInPage"));
 const BlogEditList = lazy(() => import("./pages/admin/BlogEditList"));
 const ComingSoon = lazy(() => import("./components/ComingSoon"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
+const AdminHomePage = lazy(() => import("@/pages/admin/AdminHomePage"));
+const AdminLayout = lazy(() => import("@/pages/admin/AdminLayout"));
+const SessionProvider = lazy(() => import("@/utils/session-hook"));
 
 const queryClient = new QueryClient();
 
@@ -35,12 +38,15 @@ createRoot(document.getElementById("root")!).render(
             <Route path="*" element={<PageNotFound />} />
           </Route>
 
-          <Route path="admin">
-            <Route path="blog-upload">
-              <Route index element={<BlogEditList />} />
-              <Route path=":slug" element={<BlogEditor />} />
+          <Route element={<SessionProvider />}>
+            <Route path="admin" element={<AdminLayout />}>
+              <Route index element={<AdminHomePage />} />
+              <Route path="blog-upload">
+                <Route index element={<BlogEditList />} />
+                <Route path=":slug" element={<BlogEditor />} />
+              </Route>
             </Route>
-            <Route path="login" element={<LogIn />} />
+            <Route path="admin/login" element={<LogInPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
