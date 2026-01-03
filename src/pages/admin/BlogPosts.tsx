@@ -1,11 +1,24 @@
 import { Link } from "react-router";
 import { usePostsList } from "../../utils/blog";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function BlogEditList() {
-  const { data, error } = usePostsList();
+  const { data, isLoading, error } = usePostsList();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   if (error) {
-    return <p>Error fetching posts...</p>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Error loading post...</p>
+      </div>
+    );
   }
 
   return (
@@ -17,13 +30,13 @@ export default function BlogEditList() {
       <ul>
         {data?.map((post) => (
           <Link
-            to={`/admin/blog-upload/${post.slug}`}
+            to={`/admin/blog-posts/${post.slug}`}
             className="text-xl font-semibold hover:underline"
             key={post.slug}
           >
-            <li className="mb-4 border border-orange-400 p-2">
+            <li className="mb-4 border-2 p-2">
               {post.title}
-              <p className="text-gray-200 text-sm">
+              <p className="text-foreground text-sm">
                 {new Date(post.date).toLocaleString()}
               </p>
             </li>

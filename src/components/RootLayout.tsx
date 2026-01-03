@@ -23,7 +23,7 @@ export default function RootLayout() {
   }, [location]);
 
   return (
-    <div className="m-0 p-0 relative pixel-art text-white pixelify-sans">
+    <div className="m-0 p-0 relative pixel-art text-white">
       {/* Background layer */}
       <div className="fixed inset-0 bg-[url(./assets/wallpaper.jpg)] bg-cover blur-sm brightness-25"></div>
 

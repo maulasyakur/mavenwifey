@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { useSession } from "@/utils/session-hook";
@@ -43,11 +44,16 @@ export default function AdminLayout() {
     <>
       <div className="shadow-md p-2 flex items-center justify-between">
         <p>Welcome Dita!!!</p>
-        <Button onClick={() => signOut()} disabled={isPending}>
-          {isPending ? <Spinner /> : "Logout"}
-        </Button>
+        <div className="flex gap-2 items-center">
+          <ThemeToggle />
+          <Button onClick={() => signOut()} disabled={isPending}>
+            {isPending ? <Spinner /> : "Logout"}
+          </Button>
+        </div>
       </div>
-      <Outlet />
+      <div className="p-2 pixelify-sans">
+        <Outlet />
+      </div>
     </>
   );
 }
