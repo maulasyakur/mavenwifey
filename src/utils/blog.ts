@@ -22,11 +22,11 @@ export function usePostsList() {
 }
 
 // utils/blog.ts
-export function usePost(slug: string | undefined) {
+export function usePost(slug: string) {
   return useQuery({
     queryKey: ["post", slug], // Include slug in query key
     queryFn: async () => {
-      if (!slug) {
+      if (slug === "new" || !slug) {
         return {
           title: "",
           date: "",
@@ -53,7 +53,7 @@ export function usePost(slug: string | undefined) {
         content: posts[0].content,
       };
     },
-    enabled: !!slug, // Only run query when slug exists
+    refetchOnWindowFocus: false,
   });
 }
 
