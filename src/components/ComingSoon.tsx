@@ -2,9 +2,13 @@ import AboutMeIcon from "../assets/about-me.png";
 
 export default function ComingSoon() {
   return (
-    <div className="flex flex-col gap-2 m-auto">
+    <div className="flex flex-col gap-2 items-center justify-center h-screen">
       <h1 className="text-2xl text-center">Coming Soon</h1>
-      <img src={AboutMeIcon} alt="COming soon icon" className="pixel-art " />
+      <img
+        src={AboutMeIcon}
+        alt="Coming soon icon"
+        className="pixel-art w-32 h-32"
+      />
     </div>
   );
 }

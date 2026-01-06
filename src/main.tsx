@@ -17,7 +17,7 @@ const ComingSoon = lazy(() => import("./components/ComingSoon"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
 const AdminHomePage = lazy(() => import("@/pages/admin/AdminHomePage"));
 const AdminLayout = lazy(() => import("@/pages/admin/AdminLayout"));
-const SessionProvider = lazy(() => import("@/utils/session-hook"));
+const SessionProvider = lazy(() => import("@/lib/session-hook"));
 
 const queryClient = new QueryClient();
 
@@ -48,6 +48,7 @@ createRoot(document.getElementById("root")!).render(
                   <Route index element={<BlogEditList />} />
                   <Route path=":slug" element={<BlogEditor />} />
                 </Route>
+                <Route path="albums" element={<ComingSoon />} />
                 <Route path="*" element={<PageNotFound />} />
               </Route>
               <Route path="admin/login" element={<LogInPage />} />

@@ -7,14 +7,14 @@ export default function AdminHomePage() {
       <h1 className="text-2xl">What do you want to do today?</h1>
       <ul className="space-y-2">
         <li>
-          <Link to="/admin/blog-posts">
-            <Button className="w-full">Manage Blog Posts</Button>
-          </Link>
+          <Button className="w-full" asChild>
+            <Link to="/admin/blog-posts">Manage Blog Posts</Link>
+          </Button>
         </li>
         <li>
-          <Link to="/admin/albums">
-            <Button className="w-full">Manage Albums</Button>
-          </Link>
+          <Button className="w-full" asChild>
+            <Link to="/admin/albums">Manage Albums</Link>
+          </Button>
         </li>
       </ul>
     </div>

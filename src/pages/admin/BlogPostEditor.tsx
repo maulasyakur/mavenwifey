@@ -1,7 +1,14 @@
 import { Spinner } from "@/components/ui/spinner";
-import { usePost } from "@/utils/blog";
+import { usePost } from "@/lib/blog";
 import { useParams } from "react-router";
 
+// TODO: Look for editor components that can:
+// - support markdown editing with preview
+// - simple text formatting like bold, italics, headings, lists
+// - image embedding
+// - link embedding
+// - youtube embedding
+// - code block support with syntax highlighting
 export default function BlogPostEditor() {
   const { slug } = useParams();
   const { data, isLoading, error } = usePost(slug!);

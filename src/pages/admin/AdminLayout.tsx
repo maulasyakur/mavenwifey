@@ -1,8 +1,8 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { useSession } from "@/utils/session-hook";
-import supabase from "@/utils/supabase";
+import { useSession } from "@/lib/session-hook";
+import supabase from "@/lib/supabase";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { usePostsList } from "../../utils/blog";
+import { usePostsList } from "../../lib/blog";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 

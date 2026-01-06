@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router";
-import { usePost } from "../utils/blog";
+import { usePost } from "../lib/blog";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";

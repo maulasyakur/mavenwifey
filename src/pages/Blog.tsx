@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { usePostsList } from "../utils/blog";
+import { usePostsList } from "../lib/blog";
 
 export default function Blog() {
   const { data, error, isLoading } = usePostsList();

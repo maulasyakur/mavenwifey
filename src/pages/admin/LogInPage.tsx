@@ -9,10 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
 import { useForm } from "@tanstack/react-form";
-import supabase from "@/utils/supabase";
+import supabase from "@/lib/supabase";
 import { useNavigate } from "react-router";
 import { Spinner } from "@/components/ui/spinner";
-import { useSession } from "@/utils/session-hook";
+import { useSession } from "@/lib/session-hook";
 import { useEffect } from "react";
 
 const formSchema = z.object({
