@@ -33,7 +33,7 @@ export default function Post() {
           {new Date(data?.date!).toLocaleString()}
         </h2>
       </div>
-      <article className="prose prose-invert max-w-none">
+      <article className="prose prose-invert max-w-none overflow-hidden">
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[rehypeKatex]}

@@ -29,7 +29,7 @@ export default function RootLayout() {
 
       {/* Content container */}
       <div
-        className={`relative z-10 max-w-md h-dvh mx-auto flex flex-col bg-cover`}
+        className="relative max-w-md h-dvh mx-auto flex flex-col bg-cover overflow-hidden"
         style={{ backgroundImage: `url(${bgImg})` }}
       >
         <Navbar />
