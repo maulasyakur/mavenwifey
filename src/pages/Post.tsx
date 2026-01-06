@@ -2,10 +2,12 @@ import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router";
 import { usePost } from "../utils/blog";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 export default function Post() {
   const { slug } = useParams();
-  const { data, error, isLoading } = usePost(slug);
+  const { data, error, isLoading } = usePost(slug!);
 
   if (isLoading) {
     return (
@@ -31,7 +33,14 @@ export default function Post() {
           {new Date(data?.date!).toLocaleString()}
         </h2>
       </div>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{data?.content}</ReactMarkdown>
+      <article className="prose prose-invert max-w-none">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+        >
+          {data?.content}
+        </ReactMarkdown>
+      </article>
     </div>
   );
 }

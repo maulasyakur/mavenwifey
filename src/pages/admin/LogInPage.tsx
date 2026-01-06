@@ -32,8 +32,7 @@ export default function LoginPage() {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log("Form submitted successfully: ", value);
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
       });
@@ -43,7 +42,6 @@ export default function LoginPage() {
         return;
       }
 
-      console.log("Log in succesful: ", data);
       navigate("/admin");
     },
   });
