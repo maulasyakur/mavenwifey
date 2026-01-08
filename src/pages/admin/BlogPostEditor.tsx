@@ -57,5 +57,7 @@ export default function BlogPostEditor() {
     );
   }
 
+  console.log("rendering...");
+
   return <SimpleEditor content={data?.content || ""} />;
 }

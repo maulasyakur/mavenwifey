@@ -232,18 +232,14 @@ export function SimpleEditor({
       }),
       Markdown,
     ],
+    content,
+    contentType: "markdown",
   });
 
   const rect = useCursorVisibility({
     editor,
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
   });
-
-  useEffect(() => {
-    if (editor && content) {
-      editor.commands.setContent(content, { contentType: "markdown" });
-    }
-  }, [editor, content]);
 
   useEffect(() => {
     if (!isMobile && mobileView !== "main") {
