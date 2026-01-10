@@ -1,5 +1,5 @@
 import { Spinner } from "@/components/ui/spinner";
-import { usePost } from "@/lib/blog";
+import { usePost, type Post } from "@/lib/blog";
 import { useParams } from "react-router";
 // import { useEditor, EditorContent, EditorContext } from "@tiptap/react";
 // import { FloatingMenu, BubbleMenu } from "@tiptap/react/menus";
@@ -8,6 +8,9 @@ import { useParams } from "react-router";
 // import { Markdown } from "@tiptap/markdown";
 // import { HeadingButton } from "@/components/tiptap-ui/heading-button";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import { createContext } from "react";
+
+export const PostContext = createContext<Post | null>(null);
 
 // TODO: Look for editor components that can:
 // - support markdown editing with preview
@@ -59,5 +62,20 @@ export default function BlogPostEditor() {
 
   console.log("rendering...");
 
-  return <SimpleEditor content={data?.content || ""} />;
+  return (
+    <PostContext.Provider
+      value={
+        data || {
+          content: "",
+          created_at: "",
+          id: 0,
+          slug: "",
+          title: "",
+          public: false,
+        }
+      }
+    >
+      <SimpleEditor content={data?.content || ""} />
+    </PostContext.Provider>
+  );
 }

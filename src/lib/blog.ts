@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import supabase from "./supabase";
 
 export function usePostsList() {
@@ -21,37 +21,47 @@ export function usePostsList() {
   });
 }
 
+export interface Post {
+  content: string | null;
+  created_at: string;
+  id: number;
+  slug: string;
+  title: string | null;
+  public: boolean;
+}
+
 // utils/blog.ts
 export function usePost(slug: string) {
   return useQuery({
     queryKey: ["post", slug], // Include slug in query key
-    queryFn: async () => {
+    queryFn: async (): Promise<Post> => {
       if (slug === "new" || !slug) {
         return {
-          title: "",
-          date: "",
           content: "",
+          created_at: "",
+          id: 0,
+          slug: "",
+          title: "",
+          public: false,
         };
       }
 
-      const { data: posts, error } = await supabase
+      const { data: post, error } = await supabase
         .from("posts")
-        .select("title, created_at, content")
-        .eq("slug", slug);
+        .select("*")
+        .eq("slug", slug)
+        .limit(1)
+        .maybeSingle();
 
       if (error) {
         throw error;
       }
 
-      if (!posts || posts.length === 0) {
+      if (!post) {
         throw new Error("Post not found");
       }
 
-      return {
-        title: posts[0].title,
-        date: posts[0].created_at,
-        content: posts[0].content,
-      };
+      return post;
     },
     refetchOnWindowFocus: false,
   });
@@ -76,4 +86,31 @@ export async function imageUploadHandler(image: File) {
     .getPublicUrl(UploadData.path);
 
   return URLdata.publicUrl;
+}
+
+export function useSavePost({
+  id,
+  title,
+  slug,
+  content,
+}: {
+  id: number;
+  title: string;
+  slug: string;
+  content: string;
+}) {
+  return useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase
+        .from("posts")
+        .upsert({ id, title, slug, content })
+        .select();
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    },
+  });
 }

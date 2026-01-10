@@ -86,13 +86,15 @@ export type Database = {
           content: string | null;
           created_at: string;
           id: number;
+          public: boolean;
           slug: string;
           title: string | null;
         };
         Insert: {
           content?: string | null;
           created_at?: string;
-          id: number;
+          id?: number;
+          public?: boolean;
           slug?: string;
           title?: string | null;
         };
@@ -100,6 +102,7 @@ export type Database = {
           content?: string | null;
           created_at?: string;
           id?: number;
+          public?: boolean;
           slug?: string;
           title?: string | null;
         };
