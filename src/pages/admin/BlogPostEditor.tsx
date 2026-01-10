@@ -60,8 +60,6 @@ export default function BlogPostEditor() {
     );
   }
 
-  console.log("rendering...");
-
   return (
     <PostContext.Provider
       value={

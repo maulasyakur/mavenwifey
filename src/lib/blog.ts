@@ -88,17 +88,7 @@ export async function imageUploadHandler(image: File) {
   return URLdata.publicUrl;
 }
 
-export function useSavePost({
-  id,
-  title,
-  slug,
-  content,
-}: {
-  id: number;
-  title: string;
-  slug: string;
-  content: string;
-}) {
+export function useSavePost({ id, title, slug, content }: Post) {
   return useMutation({
     mutationFn: async () => {
       const { data, error } = await supabase

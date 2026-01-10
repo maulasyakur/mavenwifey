@@ -5,7 +5,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "./ui/button";
 import { useCurrentEditor } from "@tiptap/react";
 import { useContext } from "react";
 import { PostContext } from "@/pages/admin/BlogPostEditor";
@@ -21,6 +20,10 @@ import {
 } from "./ui/field";
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
+import { Button } from "./ui/button";
+import supabase from "@/lib/supabase";
+import { Spinner } from "./ui/spinner";
+import { Check } from "lucide-react";
 
 const formSchema = z.object({
   title: z.string().min(1, "Please enter a title."),
@@ -49,25 +52,32 @@ export default function SavePostButton() {
       }
 
       const postData = {
+        ...(data?.id && { id: data.id }),
         title: value.title,
         slug: value.slug,
         content: editor?.getMarkdown() || "",
         public: value.public,
-        id: data?.id || null,
-        created_at: data?.created_at || new Date().toISOString(),
       };
 
       console.log("Final post data to save:", postData);
+      const { data: response, error } = await supabase
+        .from("posts")
+        .upsert(postData)
+        .select();
+      if (error) {
+        console.error("Error saving post:", error);
+        throw error;
+      } else {
+        console.log("Post saved successfully:", response);
+      }
     },
   });
 
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
-          <Button type="button" data-style="primary">
-            Save Post
-          </Button>
+        <DialogTrigger asChild>
+          <Button>Save Post</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -169,10 +179,52 @@ export default function SavePostButton() {
                     );
                   }}
                 />
+                <Field>
+                  <form.Subscribe
+                    selector={(state) => ({
+                      isSubmitting: state.isSubmitting,
+                      isSubmitted: state.isSubmitted,
+                      submissionAttempts: state.submissionAttempts,
+                    })}
+                    children={({
+                      isSubmitting,
+                      isSubmitted,
+                      submissionAttempts,
+                    }) => (
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="transition-all duration-200 min-w-[100px]"
+                      >
+                        {isSubmitting ? (
+                          <Spinner className="h-4 w-4" />
+                        ) : isSubmitted && submissionAttempts > 0 ? (
+                          <span className="flex items-center gap-2 animate-in fade-in">
+                            <Check className="h-4 w-4" />
+                            Saved!
+                          </span>
+                        ) : (
+                          "Save"
+                        )}
+                      </Button>
+                    )}
+                  />
+                </Field>
+                <Field>
+                  <form.Subscribe
+                    selector={(state) => state.errors.length > 0}
+                    children={(error) => (
+                      <>
+                        {error && (
+                          <FieldError
+                            errors={form.getAllErrors().form.errors}
+                          />
+                        )}
+                      </>
+                    )}
+                  />
+                </Field>
               </FieldGroup>
-              <Button type="submit" className="mt-4">
-                Save
-              </Button>
             </form>
           </DialogHeader>
         </DialogContent>
