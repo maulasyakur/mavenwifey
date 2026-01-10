@@ -30,7 +30,9 @@ export default function Post() {
       <div>
         <h1 className="text-3xl font-bold">{data?.title}</h1>
         <h2 className="text-sm text-gray-200">
-          {new Date(data?.date!).toLocaleString()}
+          {data?.created_at
+            ? new Date(data?.created_at).toLocaleString()
+            : "Upload date unknown"}
         </h2>
       </div>
       <article className="prose prose-invert max-w-none overflow-hidden">

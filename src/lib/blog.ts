@@ -1,13 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import supabase from "./supabase";
 
-export function usePostsList() {
+export function usePostsList(publicOnly: boolean = true) {
   return useQuery({
     queryKey: ["post-list"],
     queryFn: async () => {
       const { data: posts, error } = await supabase
         .from("posts")
-        .select("title, created_at, slug");
+        .select("title, created_at, slug")
+        .eq(publicOnly ? "public" : "true", true);
 
       if (error) {
         throw error;

@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { usePostsList } from "../lib/blog";
 
 export default function Blog() {
-  const { data, error, isLoading } = usePostsList();
+  const { data, error, isLoading } = usePostsList(true);
 
   if (isLoading) {
     return (
@@ -38,6 +38,7 @@ export default function Blog() {
             </li>
           </Link>
         ))}
+        <li className="mt-8">More posts coming soon... 🚧</li>
       </ul>
     </div>
   );
