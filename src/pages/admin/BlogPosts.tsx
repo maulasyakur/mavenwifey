@@ -1,10 +1,10 @@
 import { Link } from "react-router";
-import { usePostsList } from "../../lib/blog";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
+import { useAllPosts } from "@/lib/blog";
 
 export default function BlogEditList() {
-  const { data, isLoading, error } = usePostsList();
+  const { data, isLoading, error } = useAllPosts();
 
   if (isLoading) {
     return (
@@ -38,7 +38,7 @@ export default function BlogEditList() {
             <li className="mb-4 border-2 p-2">
               {post.title}
               <p className="text-foreground text-sm">
-                {new Date(post.date).toLocaleString()}
+                {new Date(post.created_at).toLocaleString()}
               </p>
             </li>
           </Link>

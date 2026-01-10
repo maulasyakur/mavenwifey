@@ -1,23 +1,37 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import supabase from "./supabase";
 
-export function usePostsList(publicOnly: boolean = true) {
+// For public posts only
+export function usePublicPosts() {
   return useQuery({
-    queryKey: ["post-list"],
+    queryKey: ["posts", "public"],
     queryFn: async () => {
-      const { data: posts, error } = await supabase
+      const { data, error } = await supabase
         .from("posts")
         .select("title, created_at, slug")
-        .eq(publicOnly ? "public" : "true", true);
+        .eq("public", true)
+        .order("created_at", { ascending: false });
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
-      return posts?.map(({ created_at, ...rest }) => ({
-        ...rest,
-        date: created_at,
-      }));
+      return data;
+    },
+  });
+}
+
+// For all posts (admin view)
+export function useAllPosts() {
+  return useQuery({
+    queryKey: ["posts", "all"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("posts")
+        .select("title, created_at, slug, public") // Include public status
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      return data;
     },
   });
 }
