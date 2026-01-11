@@ -21,9 +21,9 @@ import {
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
-import supabase from "@/lib/supabase";
 import { Spinner } from "./ui/spinner";
 import { Check } from "lucide-react";
+import { useSavePost } from "@/lib/blog";
 
 const formSchema = z.object({
   title: z.string().min(1, "Please enter a title."),
@@ -34,6 +34,7 @@ const formSchema = z.object({
 export default function SavePostButton() {
   const { editor } = useCurrentEditor();
   const data = useContext(PostContext);
+  const mutation = useSavePost();
   const form = useForm({
     defaultValues: {
       title: data?.title || "",
@@ -59,17 +60,19 @@ export default function SavePostButton() {
         public: value.public,
       };
 
-      console.log("Final post data to save:", postData);
-      const { data: response, error } = await supabase
-        .from("posts")
-        .upsert(postData)
-        .select();
-      if (error) {
-        console.error("Error saving post:", error);
-        throw error;
-      } else {
-        console.log("Post saved successfully:", response);
-      }
+      mutation.mutate(postData);
+
+      // console.log("Final post data to save:", postData);
+      // const { data: response, error } = await supabase
+      //   .from("posts")
+      //   .upsert(postData)
+      //   .select();
+      // if (error) {
+      //   console.error("Error saving post:", error);
+      //   throw error;
+      // } else {
+      //   console.log("Post saved successfully:", response);
+      // }
     },
   });
 

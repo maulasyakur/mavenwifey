@@ -4,15 +4,18 @@ import { usePost } from "../lib/blog";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { Spinner } from "@/components/ui/8bit/spinner";
 
 export default function Post() {
   const { slug } = useParams();
-  const { data, error, isLoading } = usePost(slug!);
+  const { data, error, isPending } = usePost(slug!);
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="p-6 w-full h-full mx-auto bg-black/70 overflow-auto space-y-6">
-        <h1>Loading...</h1>
+        <div className="flex items-center justify-center">
+          <Spinner variant="diamond" />
+        </div>
       </div>
     );
   }

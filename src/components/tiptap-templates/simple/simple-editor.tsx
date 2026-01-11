@@ -68,7 +68,6 @@ import { useCursorVisibility } from "@/hooks/use-cursor-visibility";
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 
 // --- Styles ---
-import "@/components/tiptap-templates/simple/simple-editor.scss";
 import { Markdown } from "@tiptap/markdown";
 import SavePostButton from "@/components/SavePostButton";
 
@@ -246,7 +245,7 @@ export function SimpleEditor({
   }, [isMobile, mobileView]);
 
   return (
-    <div className="simple-editor-wrapper">
+    <div>
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}
@@ -275,7 +274,7 @@ export function SimpleEditor({
         <EditorContent
           editor={editor}
           role="presentation"
-          className="simple-editor-content"
+          className="my-2 mx-auto py-2 px-4 border-2 rounded-xl max-w-lg "
         />
       </EditorContext.Provider>
     </div>

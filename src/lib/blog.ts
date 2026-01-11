@@ -1,5 +1,14 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import supabase from "./supabase";
+
+export interface Post {
+  content: string | null;
+  created_at: string;
+  id: number;
+  slug: string;
+  title: string | null;
+  public: boolean;
+}
 
 // For public posts only
 export function usePublicPosts() {
@@ -36,28 +45,19 @@ export function useAllPosts() {
   });
 }
 
-export interface Post {
-  content: string | null;
-  created_at: string;
-  id: number;
-  slug: string;
-  title: string | null;
-  public: boolean;
-}
-
 // utils/blog.ts
 export function usePost(slug: string) {
   return useQuery({
-    queryKey: ["post", slug], // Include slug in query key
-    queryFn: async (): Promise<Post> => {
-      if (slug === "new" || !slug) {
+    queryKey: ["post", slug],
+    queryFn: async () => {
+      if (slug === "new") {
         return {
           content: "",
           created_at: "",
           id: 0,
+          public: false,
           slug: "",
           title: "",
-          public: false,
         };
       }
 
@@ -103,12 +103,24 @@ export async function imageUploadHandler(image: File) {
   return URLdata.publicUrl;
 }
 
-export function useSavePost({ id, title, slug, content }: Post) {
+export function useSavePost() {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (postData: {
+      id?: number;
+      title: string;
+      slug: string;
+      content: string;
+      public: boolean;
+    }) => {
+      queryClient.invalidateQueries({ queryKey: ["posts", "all"] });
+      queryClient.invalidateQueries({ queryKey: ["posts", "public"] });
+      queryClient.invalidateQueries({ queryKey: ["post", postData.slug] });
+
       const { data, error } = await supabase
         .from("posts")
-        .upsert({ id, title, slug, content })
+        .upsert(postData)
         .select();
 
       if (error) {

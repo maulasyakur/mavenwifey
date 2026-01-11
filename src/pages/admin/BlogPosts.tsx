@@ -1,15 +1,15 @@
 import { Link } from "react-router";
-import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { useAllPosts } from "@/lib/blog";
+import { Spinner } from "@/components/ui/8bit/spinner";
 
 export default function BlogEditList() {
-  const { data, isLoading, error } = useAllPosts();
+  const { data, isPending, error } = useAllPosts();
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="flex items-center justify-center">
-        <Spinner />
+        <Spinner variant="diamond" />
       </div>
     );
   }
