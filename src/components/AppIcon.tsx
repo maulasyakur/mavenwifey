@@ -12,7 +12,7 @@ export default function AppIcon({
   return (
     <div>
       <Link to={url}>
-        <div className="bg-white/50 w-16 h-16 rounded-lg relative">
+        <div className="w-16 h-16 rounded-lg relative">
           <img
             src={icon}
             alt={`${name} icon`}
