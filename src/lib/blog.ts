@@ -45,7 +45,6 @@ export function useAllPosts() {
   });
 }
 
-// utils/blog.ts
 export function usePost(slug: string) {
   return useQuery({
     queryKey: ["post", slug],

@@ -1,6 +1,6 @@
 import { usePost, type Post } from "@/lib/blog";
 import { useParams } from "react-router";
-import { createContext, lazy, Suspense } from "react";
+import { createContext, lazy } from "react";
 import { Spinner } from "@/components/ui/8bit/spinner";
 
 const SimpleEditor = lazy(() =>
@@ -52,15 +52,7 @@ export default function BlogPostEditor() {
         }
       }
     >
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center h-screen">
-            <Spinner variant="diamond" />
-          </div>
-        }
-      >
-        <SimpleEditor content={data?.content || ""} />
-      </Suspense>
+      <SimpleEditor content={data?.content || ""} />
     </PostContext.Provider>
   );
 }
