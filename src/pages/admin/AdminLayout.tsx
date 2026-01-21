@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 import PhotoAlbumIcon from "@/assets/photo-album.png";
+import { toast, Toaster } from "sonner";
 
 export default function AdminLayout() {
   const { session, isLoading } = useSession();
@@ -19,7 +20,7 @@ export default function AdminLayout() {
       return null;
     },
     onError: (error) => {
-      console.error("Logout failed:", error);
+      toast(`Logout failed: ${error.message}`);
     },
   });
 
@@ -57,6 +58,7 @@ export default function AdminLayout() {
       </div>
       <div className="p-2 pixelify-sans">
         <Outlet />
+        <Toaster />
       </div>
     </>
   );

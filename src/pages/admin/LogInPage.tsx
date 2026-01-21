@@ -14,6 +14,7 @@ import { useNavigate } from "react-router";
 import { Spinner } from "@/components/ui/spinner";
 import { useSession } from "@/lib/session-hook";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.email(),
@@ -38,7 +39,7 @@ export default function LoginPage() {
       });
 
       if (error) {
-        console.error("Log in unsuccessful, ", error);
+        toast(`Log in unsuccessful, ${error.message}`);
         return;
       }
 

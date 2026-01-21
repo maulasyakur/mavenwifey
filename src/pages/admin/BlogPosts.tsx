@@ -8,7 +8,7 @@ export default function BlogEditList() {
 
   if (isPending) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <Spinner variant="diamond" />
       </div>
     );

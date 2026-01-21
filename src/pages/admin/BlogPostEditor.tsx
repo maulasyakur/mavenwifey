@@ -3,11 +3,7 @@ import { useParams } from "react-router";
 import { createContext, lazy } from "react";
 import { Spinner } from "@/components/ui/8bit/spinner";
 
-const SimpleEditor = lazy(() =>
-  import("@/components/tiptap-templates/simple/simple-editor").then(
-    (module) => ({ default: module.SimpleEditor })
-  )
-);
+const TextEditor = lazy(() => import("@/components/PostEditor"));
 
 export const PostContext = createContext<Post | null>(null);
 
@@ -25,7 +21,7 @@ export default function BlogPostEditor() {
 
   if (isPending) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="h-screen flex items-center justify-center">
         <Spinner variant="diamond" />
       </div>
     );
@@ -52,7 +48,7 @@ export default function BlogPostEditor() {
         }
       }
     >
-      <SimpleEditor content={data?.content || ""} />
+      <TextEditor />
     </PostContext.Provider>
   );
 }
