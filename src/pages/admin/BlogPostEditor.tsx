@@ -8,12 +8,12 @@ const TextEditor = lazy(() => import("@/components/PostEditor"));
 export const PostContext = createContext<Post | null>(null);
 
 // TODO: Look for editor components that can:
-// - support markdown editing with preview ✅
-// - simple text formatting like bold ✅, italics ✅, headings ✅, lists ✅
-// - image embedding ✅
-// - link embedding ✅
+// - support markdown editing with preview
+// - simple text formatting like bold, italics, headings, lists ✅
+// - image embedding
+// - link embedding
 // - youtube embedding
-// - code block support with syntax highlighting ✅
+// - code block support with syntax highlighting
 // - math support (LaTeX)
 export default function BlogPostEditor() {
   const { slug } = useParams();

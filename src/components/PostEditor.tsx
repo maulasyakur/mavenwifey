@@ -1,204 +1,41 @@
 import { TextStyleKit } from "@tiptap/extension-text-style";
-import type { Editor } from "@tiptap/react";
-import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
+import { EditorContent, EditorContext, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Button } from "./ui/button";
+import HeadingDropdownMenu from "./tiptap-ui/heading-dropdown-menu/heading-dropdown-menu";
+import { MarkButton } from "./tiptap-ui/mark-button";
+import { Separator } from "./tiptap-ui-primitive/separator";
+import { ListDropdownMenu } from "./tiptap-ui/list-dropdown-menu";
 
 const extensions = [TextStyleKit, StarterKit];
 
-function MenuBar({ editor }: { editor: Editor }) {
-  // Read the current editor's state, and re-render the component when it changes
-  const editorState = useEditorState({
-    editor,
-    selector: (ctx) => {
-      return {
-        isBold: ctx.editor.isActive("bold") ?? false,
-        canBold: ctx.editor.can().chain().toggleBold().run() ?? false,
-        isItalic: ctx.editor.isActive("italic") ?? false,
-        canItalic: ctx.editor.can().chain().toggleItalic().run() ?? false,
-        isStrike: ctx.editor.isActive("strike") ?? false,
-        canStrike: ctx.editor.can().chain().toggleStrike().run() ?? false,
-        isCode: ctx.editor.isActive("code") ?? false,
-        canCode: ctx.editor.can().chain().toggleCode().run() ?? false,
-        canClearMarks: ctx.editor.can().chain().unsetAllMarks().run() ?? false,
-        isParagraph: ctx.editor.isActive("paragraph") ?? false,
-        isHeading1: ctx.editor.isActive("heading", { level: 1 }) ?? false,
-        isHeading2: ctx.editor.isActive("heading", { level: 2 }) ?? false,
-        isHeading3: ctx.editor.isActive("heading", { level: 3 }) ?? false,
-        isHeading4: ctx.editor.isActive("heading", { level: 4 }) ?? false,
-        isHeading5: ctx.editor.isActive("heading", { level: 5 }) ?? false,
-        isHeading6: ctx.editor.isActive("heading", { level: 6 }) ?? false,
-        isBulletList: ctx.editor.isActive("bulletList") ?? false,
-        isOrderedList: ctx.editor.isActive("orderedList") ?? false,
-        isCodeBlock: ctx.editor.isActive("codeBlock") ?? false,
-        isBlockquote: ctx.editor.isActive("blockquote") ?? false,
-        canUndo: ctx.editor.can().chain().undo().run() ?? false,
-        canRedo: ctx.editor.can().chain().redo().run() ?? false,
-      };
-    },
-  });
-
+function MenuBar() {
   return (
-    <div className="sticky top-0 p-2 bg-black z-10">
-      <div className="flex overflow-x-auto gap-2 no-scrollbar">
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          disabled={!editorState.canBold}
-          className={editorState.isBold ? "is-active" : ""}
-        >
-          Bold
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          disabled={!editorState.canItalic}
-          className={editorState.isItalic ? "is-active" : ""}
-        >
-          Italic
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleStrike().run()}
-          disabled={!editorState.canStrike}
-          className={editorState.isStrike ? "is-active" : ""}
-        >
-          Strike
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleCode().run()}
-          disabled={!editorState.canCode}
-          className={editorState.isCode ? "is-active" : ""}
-        >
-          Code
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().unsetAllMarks().run()}
-          variant="outline"
-        >
-          Clear marks
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().clearNodes().run()}
-          variant="outline"
-        >
-          Clear nodes
-        </Button>
-        <Button
-          variant="outline"
-          className={editorState.isParagraph ? "is-active" : ""}
-        >
-          Paragraph
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 1 }).run()
-          }
-          className={editorState.isHeading1 ? "is-active" : ""}
-        >
-          H1
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-          className={editorState.isHeading2 ? "is-active" : ""}
-        >
-          H2
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-          }
-          className={editorState.isHeading3 ? "is-active" : ""}
-        >
-          H3
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 4 }).run()
-          }
-          className={editorState.isHeading4 ? "is-active" : ""}
-        >
-          H4
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 5 }).run()
-          }
-          className={editorState.isHeading5 ? "is-active" : ""}
-        >
-          H5
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 6 }).run()
-          }
-          className={editorState.isHeading6 ? "is-active" : ""}
-        >
-          H6
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={editorState.isBulletList ? "is-active" : ""}
-        >
-          Bullet list
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editorState.isOrderedList ? "is-active" : ""}
-        >
-          Ordered list
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          className={editorState.isCodeBlock ? "is-active" : ""}
-        >
-          Code block
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          className={editorState.isBlockquote ? "is-active" : ""}
-        >
-          Blockquote
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        >
-          Horizontal rule
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().setHardBreak().run()}
-        >
-          Hard break
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editorState.canUndo}
-        >
-          Undo
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editorState.canRedo}
-        >
-          Redo
-        </Button>
+    <div className="sticky top-0 bg-background z-50">
+      <div className="relative">
+        {/* Left gradient overlay */}
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="flex overflow-x-auto py-2 space-x-1 px-2 items-center justify-center border-b-2">
+          <MarkButton type="bold" />
+          <MarkButton type="italic" />
+          <MarkButton type="strike" />
+          <MarkButton type="code" />
+          <MarkButton type="underline" />
+          <MarkButton type="superscript" />
+          <MarkButton type="subscript" />
+          <Separator orientation="vertical" />
+          <HeadingDropdownMenu
+            levels={[1, 2, 3, 4, 5, 6]}
+            hideWhenUnavailable={true}
+            portal={false}
+          />
+          <ListDropdownMenu
+            types={["bulletList", "orderedList", "taskList"]}
+            hideWhenUnavailable={true}
+            portal={false}
+          />
+          <Separator orientation="vertical" />
+        </div>
+        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       </div>
     </div>
   );
@@ -239,12 +76,12 @@ export default function TextEditor() {
 `,
   });
   return (
-    <div className="h-screen relative">
-      <MenuBar editor={editor} />
+    <EditorContext.Provider value={{ editor }}>
+      <MenuBar />
       <EditorContent
         editor={editor}
-        className="prose dark:prose-invert px-4 mx-auto mt-4 overflow-y-"
+        className="prose dark:prose-invert px-4 mx-auto mt-4"
       />
-    </div>
+    </EditorContext.Provider>
   );
 }
