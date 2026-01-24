@@ -5,8 +5,26 @@ import HeadingDropdownMenu from "./tiptap-ui/heading-dropdown-menu/heading-dropd
 import { MarkButton } from "./tiptap-ui/mark-button";
 import { Separator } from "./tiptap-ui-primitive/separator";
 import { ListDropdownMenu } from "./tiptap-ui/list-dropdown-menu";
+import { Markdown } from "@tiptap/markdown";
+import { ImageUploadButton } from "./tiptap-ui/image-upload-button";
+import { Image } from "@tiptap/extension-image";
+import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node";
+import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
+import { toast } from "sonner";
 
-const extensions = [TextStyleKit, StarterKit];
+const extensions = [
+  TextStyleKit,
+  StarterKit,
+  Markdown,
+  Image,
+  ImageUploadNode.configure({
+    accept: "image/*",
+    maxSize: MAX_FILE_SIZE,
+    limit: 3,
+    upload: handleImageUpload,
+    onError: (error) => toast(`Upload failed: ${error.message}`),
+  }),
+];
 
 function MenuBar() {
   return (
@@ -34,6 +52,10 @@ function MenuBar() {
             portal={false}
           />
           <Separator orientation="vertical" />
+          <ImageUploadButton
+            hideWhenUnavailable={true}
+            onInserted={() => console.log("Image inserted!")}
+          />
         </div>
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       </div>
@@ -41,47 +63,22 @@ function MenuBar() {
   );
 }
 
-export default function TextEditor() {
+export default function TextEditor({ content }: { content: string }) {
   const editor = useEditor({
     extensions,
-    content: `
-<h2>
-  Hi there,
-</h2>
-<p>
-  this is a <em>basic</em> example of <strong>Tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-</p>
-<ul>
-  <li>
-    That’s a bullet list with one …
-  </li>
-  <li>
-    … or two list items.
-  </li>
-</ul>
-<p>
-  Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-</p>
-<pre><code class="language-css">body {
-  display: none;
-}</code></pre>
-<p>
-  I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-</p>
-<blockquote>
-  Wow, that’s amazing. Good work, boy! 👏
-  <br />
-  — Mom
-</blockquote>
-`,
+    editorProps: {
+      attributes: {
+        class:
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none",
+      },
+    },
+    content: content,
+    contentType: "markdown",
   });
   return (
     <EditorContext.Provider value={{ editor }}>
       <MenuBar />
-      <EditorContent
-        editor={editor}
-        className="prose dark:prose-invert px-4 mx-auto mt-4"
-      />
+      <EditorContent editor={editor} />
     </EditorContext.Provider>
   );
 }

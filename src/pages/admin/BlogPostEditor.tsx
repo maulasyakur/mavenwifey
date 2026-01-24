@@ -1,14 +1,12 @@
-import { usePost, type Post } from "@/lib/blog";
+import { usePost } from "@/lib/blog";
 import { useParams } from "react-router";
-import { createContext, lazy } from "react";
+import { lazy } from "react";
 import { Spinner } from "@/components/ui/8bit/spinner";
 
 const TextEditor = lazy(() => import("@/components/PostEditor"));
 
-export const PostContext = createContext<Post | null>(null);
-
 // TODO: Look for editor components that can:
-// - support markdown editing with preview
+// - support markdown editing with preview ✅
 // - simple text formatting like bold, italics, headings, lists ✅
 // - image embedding
 // - link embedding
@@ -35,20 +33,5 @@ export default function BlogPostEditor() {
     );
   }
 
-  return (
-    <PostContext.Provider
-      value={
-        data || {
-          content: "",
-          created_at: "",
-          id: 0,
-          slug: "",
-          title: "",
-          public: false,
-        }
-      }
-    >
-      <TextEditor />
-    </PostContext.Provider>
-  );
+  return <TextEditor content={data.content || ""} />;
 }
