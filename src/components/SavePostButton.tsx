@@ -6,8 +6,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useCurrentEditor } from "@tiptap/react";
-import { useContext } from "react";
-import { PostContext } from "@/pages/admin/BlogPostEditor";
 import z from "zod";
 import { useForm } from "@tanstack/react-form";
 import {
@@ -20,10 +18,11 @@ import {
 } from "./ui/field";
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
-import { Button } from "./ui/button";
 import { Spinner } from "./ui/spinner";
 import { Check } from "lucide-react";
-import { useSavePost } from "@/lib/blog";
+import { usePostContext, useSavePost } from "@/lib/blog";
+import { Button as ToolbarButton } from "./tiptap-ui-primitive/button";
+import { Button } from "./ui/button";
 
 const formSchema = z.object({
   title: z.string().min(1, "Please enter a title."),
@@ -33,13 +32,13 @@ const formSchema = z.object({
 
 export default function SavePostButton() {
   const { editor } = useCurrentEditor();
-  const data = useContext(PostContext);
-  const mutation = useSavePost();
+  const { mutate } = useSavePost();
+  const postData = usePostContext();
   const form = useForm({
     defaultValues: {
-      title: data?.title || "",
-      slug: data?.slug || "",
-      public: data?.public || false,
+      title: postData?.title || "",
+      slug: postData?.slug || "",
+      public: postData?.public || false,
     },
     validators: {
       onSubmit: formSchema,
@@ -51,28 +50,14 @@ export default function SavePostButton() {
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/(^-|-$)+/g, "");
       }
-
-      const postData = {
-        ...(data?.id && { id: data.id }),
+      const submitData = {
+        ...(postData?.id && { id: postData.id }),
         title: value.title,
         slug: value.slug,
         content: editor?.getMarkdown() || "",
         public: value.public,
       };
-
-      mutation.mutate(postData);
-
-      // console.log("Final post data to save:", postData);
-      // const { data: response, error } = await supabase
-      //   .from("posts")
-      //   .upsert(postData)
-      //   .select();
-      // if (error) {
-      //   console.error("Error saving post:", error);
-      //   throw error;
-      // } else {
-      //   console.log("Post saved successfully:", response);
-      // }
+      await mutate(submitData);
     },
   });
 
@@ -80,7 +65,7 @@ export default function SavePostButton() {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Save Post</Button>
+          <ToolbarButton>Save Post</ToolbarButton>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

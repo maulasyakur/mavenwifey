@@ -1,4 +1,4 @@
-import { usePost } from "@/lib/blog";
+import { PostContextProvider, usePost } from "@/lib/blog";
 import { useParams } from "react-router";
 import { lazy, Suspense } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -26,8 +26,10 @@ export default function BlogPostEditor() {
   }
 
   return (
-    <Suspense fallback={<LoadingScreen />}>
-      <TextEditor content={data.content || ""} />
-    </Suspense>
+    <PostContextProvider post={data}>
+      <Suspense fallback={<LoadingScreen />}>
+        <TextEditor content={data.content || ""} />
+      </Suspense>
+    </PostContextProvider>
   );
 }

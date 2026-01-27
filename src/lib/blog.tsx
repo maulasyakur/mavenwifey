@@ -1,14 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import supabase from "./supabase";
+import { createContext, useContext } from "react";
 
-export interface Post {
+export type Post = {
   content: string | null;
   created_at: string;
   id: number;
   slug: string;
   title: string | null;
   public: boolean;
-}
+};
 
 // For public posts only
 export function usePublicPosts() {
@@ -113,9 +114,11 @@ export function useSavePost() {
       content: string;
       public: boolean;
     }) => {
-      queryClient.invalidateQueries({ queryKey: ["posts", "all"] });
-      queryClient.invalidateQueries({ queryKey: ["posts", "public"] });
-      queryClient.invalidateQueries({ queryKey: ["post", postData.slug] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["posts", "all"] }),
+        queryClient.invalidateQueries({ queryKey: ["posts", "public"] }),
+        queryClient.invalidateQueries({ queryKey: ["post", postData.slug] }),
+      ]);
 
       const { data, error } = await supabase
         .from("posts")
@@ -129,4 +132,24 @@ export function useSavePost() {
       return data;
     },
   });
+}
+
+const PostContext = createContext<Post | null>(null);
+
+export function PostContextProvider({
+  children,
+  post,
+}: {
+  children: React.ReactNode;
+  post: Post;
+}) {
+  return <PostContext.Provider value={post}>{children}</PostContext.Provider>;
+}
+
+export function usePostContext() {
+  const context = useContext(PostContext);
+  if (context === null) {
+    throw new Error("usePostContext must be used within a PostContextProvider");
+  }
+  return context;
 }

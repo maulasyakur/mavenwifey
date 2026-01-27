@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import Link from "@tiptap/extension-link";
 import { LinkPopover } from "./tiptap-ui/link-popover";
 import { Youtube as YoutubeExtension } from "@tiptap/extension-youtube";
+import SavePostButton from "./SavePostButton";
 
 const extensions = [
   TextStyleKit,
@@ -59,6 +60,7 @@ function MenuBar() {
             hideWhenUnavailable={true}
             onInserted={() => console.log("Image inserted!")}
           />
+          <SavePostButton />
         </div>
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       </div>

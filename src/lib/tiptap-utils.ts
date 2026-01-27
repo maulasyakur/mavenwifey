@@ -361,11 +361,7 @@ export function selectionWithinConvertibleTypes(
  * @param abortSignal Optional AbortSignal for cancelling the upload
  * @returns Promise resolving to the URL of the uploaded image
  */
-export const handleImageUpload = async (
-  file: File,
-  onProgress?: (event: { progress: number }) => void,
-  abortSignal?: AbortSignal,
-): Promise<string> => {
+export const handleImageUpload = async (file: File): Promise<string> => {
   // Validate file
   if (!file) {
     throw new Error("No file provided");
