@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export default function AdminHomePage() {
   return (
-    <div className="flex flex-col items-center justify-center mt-16 gap-4">
+    <div className="flex flex-col items-center justify-center h-screen-header gap-4">
       <h1 className="text-2xl">What do you want to do today?</h1>
       <ul className="space-y-2">
         <li>

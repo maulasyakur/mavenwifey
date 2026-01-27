@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 import PhotoAlbumIcon from "@/assets/photo-album.png";
 import { toast, Toaster } from "sonner";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function AdminLayout() {
   const { session, isLoading } = useSession();
@@ -31,11 +32,7 @@ export default function AdminLayout() {
   }, [session, isLoading, navigate]);
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Spinner />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!session) {
@@ -44,7 +41,7 @@ export default function AdminLayout() {
 
   return (
     <>
-      <div className="shadow-md p-2 flex items-center justify-between">
+      <div className="h-header shadow-md p-2 flex items-center justify-between">
         <div className="flex items-center text-center gap-2">
           <img src={PhotoAlbumIcon} alt="Logo" className="h-8 w-8" />
           <p>Welcome Dita!!!</p>

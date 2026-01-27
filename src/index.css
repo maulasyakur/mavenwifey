@@ -12,14 +12,6 @@
   image-rendering: crisp-edges; /* fallback */
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
-}
-.no-scrollbar {
-  -ms-overflow-style: none; /* For IE and Edge */
-  scrollbar-width: none; /* For Firefox */
-}
-
 :root {
   --background: oklch(0.9578 0.0058 264.5321);
   --foreground: oklch(0.4355 0.043 279.325);
@@ -199,6 +191,9 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+
+  --spacing-header: 4rem;
+  --spacing-screen-header: calc(100dvh - var(--spacing-header));
 }
 
 @layer base {

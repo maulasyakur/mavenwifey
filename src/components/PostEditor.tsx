@@ -11,6 +11,9 @@ import { Image } from "@tiptap/extension-image";
 import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node";
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 import { toast } from "sonner";
+import Link from "@tiptap/extension-link";
+import { LinkPopover } from "./tiptap-ui/link-popover";
+import { Youtube as YoutubeExtension } from "@tiptap/extension-youtube";
 
 const extensions = [
   TextStyleKit,
@@ -24,6 +27,8 @@ const extensions = [
     upload: handleImageUpload,
     onError: (error) => toast(`Upload failed: ${error.message}`),
   }),
+  Link.configure({ openOnClick: false }),
+  YoutubeExtension,
 ];
 
 function MenuBar() {
@@ -36,10 +41,8 @@ function MenuBar() {
           <MarkButton type="bold" />
           <MarkButton type="italic" />
           <MarkButton type="strike" />
-          <MarkButton type="code" />
           <MarkButton type="underline" />
-          <MarkButton type="superscript" />
-          <MarkButton type="subscript" />
+          <LinkPopover hideWhenUnavailable={true} autoOpenOnLinkActive={true} />
           <Separator orientation="vertical" />
           <HeadingDropdownMenu
             levels={[1, 2, 3, 4, 5, 6]}
@@ -69,7 +72,7 @@ export default function TextEditor({ content }: { content: string }) {
     editorProps: {
       attributes: {
         class:
-          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none",
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-5 focus:outline-none mx-auto",
       },
     },
     content: content,

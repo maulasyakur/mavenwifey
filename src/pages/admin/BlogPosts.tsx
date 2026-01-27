@@ -1,26 +1,17 @@
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { useAllPosts } from "@/lib/blog";
-import { Spinner } from "@/components/ui/8bit/spinner";
+import LoadingScreen from "@/components/LoadingScreen";
+import ErrorScreen from "@/components/ErrorScreen";
 
 export default function BlogEditList() {
   const { data, isPending, error } = useAllPosts();
 
-  if (isPending) {
+  if (isPending) return <LoadingScreen />;
+  if (error)
     return (
-      <div className="flex items-center justify-center h-screen">
-        <Spinner variant="diamond" />
-      </div>
+      <ErrorScreen message={`Error loading blog posts: ${error.message}`} />
     );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p>Error loading post...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="p-4 space-y-3">
