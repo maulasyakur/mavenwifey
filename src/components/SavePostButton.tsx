@@ -57,7 +57,7 @@ export default function SavePostButton() {
         content: editor?.getMarkdown() || "",
         public: value.public,
       };
-      await mutate(submitData);
+      mutate(submitData);
     },
   });
 

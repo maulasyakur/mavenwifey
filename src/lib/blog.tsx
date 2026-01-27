@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import supabase from "./supabase";
 import { createContext, useContext } from "react";
+import { useParams } from "react-router";
 
 export type Post = {
   content: string | null;
@@ -105,6 +106,7 @@ export async function imageUploadHandler(image: File) {
 
 export function useSavePost() {
   const queryClient = useQueryClient();
+  const { slug } = useParams();
 
   return useMutation({
     mutationFn: async (postData: {
@@ -114,12 +116,6 @@ export function useSavePost() {
       content: string;
       public: boolean;
     }) => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["posts", "all"] }),
-        queryClient.invalidateQueries({ queryKey: ["posts", "public"] }),
-        queryClient.invalidateQueries({ queryKey: ["post", postData.slug] }),
-      ]);
-
       const { data, error } = await supabase
         .from("posts")
         .upsert(postData)
@@ -130,6 +126,13 @@ export function useSavePost() {
       }
 
       return data;
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["posts", "all"] }),
+        queryClient.invalidateQueries({ queryKey: ["posts", "public"] }),
+        queryClient.invalidateQueries({ queryKey: ["post", slug] }),
+      ]);
     },
   });
 }
