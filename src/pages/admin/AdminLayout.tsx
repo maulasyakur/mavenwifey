@@ -41,7 +41,7 @@ export default function AdminLayout() {
 
   return (
     <>
-      <div className="h-header shadow-md p-2 flex items-center justify-between">
+      <nav className="h-header px-2 shadow-md flex items-center justify-between">
         <div className="flex items-center text-center gap-2">
           <img src={PhotoAlbumIcon} alt="Logo" className="h-8 w-8" />
           <p>Welcome Dita!!!</p>
@@ -52,8 +52,8 @@ export default function AdminLayout() {
             {isPending ? <Spinner /> : "Logout"}
           </Button>
         </div>
-      </div>
-      <div className="p-2 pixelify-sans">
+      </nav>
+      <div className="pixelify-sans">
         <Outlet />
         <Toaster />
       </div>
