@@ -34,11 +34,11 @@ const extensions = [
 
 function MenuBar() {
   return (
-    <div className="sticky top-0 bg-background z-50">
+    <div className="fixed bottom-0 sm:sticky sm:top-0 w-full bg-background z-50">
       <div className="relative">
         {/* Left gradient overlay */}
         <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="flex overflow-x-auto py-2 space-x-1 px-2 items-center justify-center border-b-2">
+        <div className="flex overflow-x-auto space-x-1 p-2 items-center justify-center border-t-2 sm:border-b-2 sm:border-t-0">
           <MarkButton type="bold" />
           <MarkButton type="italic" />
           <MarkButton type="strike" />
@@ -74,7 +74,7 @@ export default function TextEditor({ content }: { content: string }) {
     editorProps: {
       attributes: {
         class:
-          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-5 focus:outline-none mx-auto",
+          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl p-5 focus:outline-none mx-auto mb-16 sm:mb-0",
       },
     },
     content: content,
