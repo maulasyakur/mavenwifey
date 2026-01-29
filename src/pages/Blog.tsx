@@ -24,30 +24,37 @@ export default function Blog() {
   }
 
   return (
-    <div className="p-6 w-full h-full overflow-auto mx-auto bg-black/70">
-      <h1 className="text-3xl font-bold mb-6">📰 Blog</h1>
-      <ul>
-        {data.length > 0 ? (
-          data?.map((post) => (
-            <Link
-              to={`/blog/${post.slug}`}
-              className="text-xl font-semibold hover:underline"
-              key={post.slug}
-            >
-              <li className="mb-4 border border-orange-400 p-2">
-                {post.title}
-                <p className="text-gray-200 text-sm">
-                  {new Date(post.created_at).toLocaleString()}
-                </p>
-              </li>
-            </Link>
-          ))
-        ) : (
-          <li className="flex items-center justify-center">
-            More posts coming soon... 🚧
-          </li>
-        )}
-      </ul>
+    <div className="p-6 w-full h-full overflow-auto mx-auto relative">
+      {/* Background image */}
+      <div className="absolute inset-0 bg-[url(./assets/blog-bg.webp)] bg-cover -z-10"></div>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/70 -z-10"></div>
+
+      <div className="relative z-10">
+        <h1 className="text-3xl font-bold mb-6">📰 Blog</h1>
+        <ul>
+          {data.length > 0 ? (
+            data?.map((post) => (
+              <Link
+                to={`/blog/${post.slug}`}
+                className="text-xl font-semibold hover:underline"
+                key={post.slug}
+              >
+                <li className="mb-4 border border-orange-400 p-2">
+                  {post.title}
+                  <p className="text-gray-200 text-sm">
+                    {new Date(post.created_at).toLocaleString()}
+                  </p>
+                </li>
+              </Link>
+            ))
+          ) : (
+            <li className="flex items-center justify-center">
+              More posts coming soon... 🚧
+            </li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import "./index.css";
 
 const Home = lazy(() => import("./pages/Home"));
-const RootLayout = lazy(() => import("./components/RootLayout"));
+const RootLayout = lazy(() => import("./pages/RootLayout"));
 const ChatRoom = lazy(() => import("./pages/ChatRoom"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Post = lazy(() => import("./pages/Post"));

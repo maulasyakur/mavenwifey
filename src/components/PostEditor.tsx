@@ -15,6 +15,7 @@ import Link from "@tiptap/extension-link";
 import { LinkPopover } from "./tiptap-ui/link-popover";
 import { Youtube as YoutubeExtension } from "@tiptap/extension-youtube";
 import SavePostButton from "./SavePostButton";
+import { UndoRedoButton } from "./tiptap-ui/undo-redo-button";
 
 const extensions = [
   TextStyleKit,
@@ -39,6 +40,9 @@ function MenuBar() {
         {/* Left gradient overlay */}
         <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="flex overflow-x-auto space-x-1 p-2 items-center justify-center border-t-2 sm:border-b-2 sm:border-t-0">
+          <UndoRedoButton action={"undo"} />
+          <UndoRedoButton action={"redo"} />
+          <Separator orientation="vertical" />
           <MarkButton type="bold" />
           <MarkButton type="italic" />
           <MarkButton type="strike" />

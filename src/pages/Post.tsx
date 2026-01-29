@@ -4,28 +4,19 @@ import { usePost } from "../lib/blog";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import { Spinner } from "@/components/ui/8bit/spinner";
+import LoadingScreen from "@/components/LoadingScreen";
+import ErrorScreen from "@/components/ErrorScreen";
 
 export default function Post() {
   const { slug } = useParams();
   const { data, error, isPending } = usePost(slug!);
 
   if (isPending) {
-    return (
-      <div className="p-6 w-full h-full mx-auto bg-black/70 overflow-auto space-y-6">
-        <div className="flex items-center justify-center">
-          <Spinner variant="diamond" />
-        </div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (error) {
-    return (
-      <div className="p-6 w-full h-full mx-auto bg-black/70 overflow-auto space-y-6">
-        <h1>Error loading post: {error.message}</h1>
-      </div>
-    );
+    return <ErrorScreen message={error.message} />;
   }
 
   return (

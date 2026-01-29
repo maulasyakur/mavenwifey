@@ -8,7 +8,7 @@ import AppIcon from "../components/AppIcon";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-between flex-1 p-4">
+    <div className="flex flex-col justify-between flex-1 p-4 bg-[url(./assets/wallpaper.jpg)] bg-cover">
       {/* app grid */}
       <div className="grid grid-cols-4 gap-4 justify-items-center">
         {[
