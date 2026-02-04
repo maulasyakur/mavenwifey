@@ -1,21 +1,7 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
-import LoadingScreen from "../components/ui/8bit/blocks/loading-screen";
-import { useLoadingProgress } from "@/hooks/use-loading-progress";
 
 export default function RootLayout() {
-  const isLoading = useLoadingProgress();
-
-  if (isLoading) {
-    return (
-      <LoadingScreen
-        variant="fullscreen"
-        title="Welcome to Nadita's website!!!"
-        autoProgress
-      />
-    );
-  }
-
   return (
     <div className="m-0 p-0 relative pixel-art text-white">
       {/* Background layer */}

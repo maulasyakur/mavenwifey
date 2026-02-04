@@ -18,6 +18,7 @@ const PageNotFound = lazy(() => import("./components/PageNotFound"));
 const AdminHomePage = lazy(() => import("@/pages/admin/AdminHomePage"));
 const AdminLayout = lazy(() => import("@/pages/admin/AdminLayout"));
 const SessionProvider = lazy(() => import("@/lib/session-hook"));
+const ContactPage = lazy(() => import("@/pages/Contact"));
 
 const queryClient = new QueryClient();
 
@@ -33,7 +34,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route index element={<Blog />} />
                 <Route path=":slug" element={<Post />} />
               </Route>
-              <Route path="contact" element={<ComingSoon />} />
+              <Route path="socials-contact" element={<ContactPage />} />
               <Route path="guest-book" element={<ComingSoon />} />
               <Route path="chat-room" element={<ChatRoom />} />
               <Route path="photo-album" element={<ComingSoon />} />

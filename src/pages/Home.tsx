@@ -5,15 +5,33 @@ import ChatRoomIcon from "../assets/chat-room.png";
 import PhotoAlbumIcon from "../assets/photo-album.png";
 import AboutMeIcon from "../assets/about-me.png";
 import AppIcon from "../components/AppIcon";
+import LoadingScreen from "@/components/ui/8bit/blocks/loading-screen";
+import { useLoadingProgress } from "@/hooks/use-loading-progress";
 
 export default function Home() {
+  const isLoading = useLoadingProgress();
+
+  if (isLoading) {
+    return (
+      <LoadingScreen
+        variant="fullscreen"
+        title="Welcome to Nadita's website!!!"
+        autoProgress
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col justify-between flex-1 p-4 bg-[url(./assets/wallpaper.jpg)] bg-cover">
       {/* app grid */}
       <div className="grid grid-cols-4 gap-4 justify-items-center">
         {[
           { icon: BlogIcon, name: "Blog", url: "/blog" },
-          { icon: ContactIcon, name: "Contact", url: "/contact" },
+          {
+            icon: ContactIcon,
+            name: "Socials & Contact",
+            url: "/socials-contact",
+          },
           { icon: GuestBookIcon, name: "Guest Book", url: "/guest-book" },
           { icon: ChatRoomIcon, name: "Chat Room", url: "/chat-room" },
           { icon: PhotoAlbumIcon, name: "Photo Album", url: "/photo-album" },
