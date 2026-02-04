@@ -35,7 +35,7 @@ export default function Home() {
       </div>
 
       {/* dock */}
-      <div className="bg-neutral-500/75 grid grid-cols-4 gap-4 justify-items-center py-2 rounded-2xl">
+      <div className="bg-neutral-500/75 grid grid-cols-4 gap-4 justify-items-center p-2 rounded-2xl">
         {[
           { icon: BlogIcon, name: "Blog", url: "/blog" },
           { icon: ContactIcon, name: "Contact", url: "/contact" },
