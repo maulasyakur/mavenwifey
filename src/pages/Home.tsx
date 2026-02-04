@@ -5,22 +5,8 @@ import ChatRoomIcon from "../assets/chat-room.png";
 import PhotoAlbumIcon from "../assets/photo-album.png";
 import AboutMeIcon from "../assets/about-me.png";
 import AppIcon from "../components/AppIcon";
-import LoadingScreen from "@/components/ui/8bit/blocks/loading-screen";
-import { useLoadingProgress } from "@/hooks/use-loading-progress";
 
 export default function Home() {
-  const isLoading = useLoadingProgress();
-
-  if (isLoading) {
-    return (
-      <LoadingScreen
-        variant="fullscreen"
-        title="Welcome to Nadita's website!!!"
-        autoProgress
-      />
-    );
-  }
-
   return (
     <div className="flex flex-col justify-between flex-1 p-4 bg-[url(./assets/wallpaper.jpg)] bg-cover">
       {/* app grid */}
